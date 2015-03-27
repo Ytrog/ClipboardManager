@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -16,7 +17,9 @@ namespace ClipboardManager
             InitializeComponent();
         }
 
-        private const int _maxItems = 5;
+        private readonly int _maxItems = GetMaxItems();
+
+        
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -79,6 +82,16 @@ namespace ClipboardManager
             {
                 Clipboard.SetText(text);
             }
+        }
+
+        private static int GetMaxItems()
+        {
+            const string key = "maxItems";
+            if(ConfigurationManager.AppSettings.AllKeys.Contains(key))
+            {
+                return Convert.ToInt32(ConfigurationManager.AppSettings[key]);
+            }
+            return 5;
         }
     }
 }
