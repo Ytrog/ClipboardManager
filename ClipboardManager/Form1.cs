@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Configuration;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -18,11 +19,12 @@ namespace ClipboardManager
         }
 
         private readonly int _maxItems = GetMaxItems();
-
+        private const string _dataFile = "clipboardEntries.dat";
         
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            LoadFile();
             timerMain.Enabled = true;
         }
 
@@ -92,6 +94,27 @@ namespace ClipboardManager
                 return Convert.ToInt32(ConfigurationManager.AppSettings[key]);
             }
             return 5;
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            SaveFile();
+        }
+
+        private void SaveFile()
+        {
+            var entries = lbStrings.Items.Cast<string>();
+            File.WriteAllLines(_dataFile, entries);
+        }
+
+        private void LoadFile()
+        {
+            if (File.Exists(_dataFile))
+            {
+                var entries = File.ReadAllLines(_dataFile);
+                lbStrings.Items.AddRange(entries);
+            }
+            
         }
     }
 }
