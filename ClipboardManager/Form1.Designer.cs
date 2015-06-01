@@ -44,6 +44,7 @@
             this.lbStrings.Size = new System.Drawing.Size(309, 290);
             this.lbStrings.TabIndex = 0;
             this.lbStrings.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lbStrings_MouseDoubleClick);
+            this.lbStrings.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lbStrings_MouseDown);
             // 
             // timerMain
             // 

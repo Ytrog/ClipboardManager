@@ -116,5 +116,16 @@ namespace ClipboardManager
             }
             
         }
+
+       
+
+        private void lbStrings_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Right)
+            {
+                lbStrings.SelectedIndex = lbStrings.IndexFromPoint(e.X, e.Y);
+                Copy();
+            }
+        }
     }
 }
